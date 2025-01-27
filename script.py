@@ -13,7 +13,7 @@ def get_code_changes():
 
 def format_content(diff_text):
     """差分テキストを整形"""
-    max_length = 70 - 4 - 8  # ハッシュタグと行頭の余白を考慮
+    max_length = 1000 - 4 - 8  # ハッシュタグと行頭の余白を考慮
     trimmed = (diff_text[:max_length] + '...') if len(diff_text) > max_length else diff_text
     
     # 差分のフォーマット整形
@@ -35,6 +35,10 @@ def create_markdown(content):
     
     with open(f'item/{date_str}.md', 'w') as f:
         f.write(f"# {date_str}\n\n{content}")
+    
+    # ニッキーファイルの内容を削除
+    with open('nikki.txt', 'w') as f:
+        pass
 
 def main():
     code_diff = get_code_changes()

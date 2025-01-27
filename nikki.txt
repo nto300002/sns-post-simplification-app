@@ -1,0 +1,5 @@
+https://zenn.dev/mizchi/articles/game-with-cline
+mizuchi氏の記事
+RooCodeについて調べた
+自作アプリのデザイン作成
+AIについて調べた　DeepSeekとClaudeの使い分け
