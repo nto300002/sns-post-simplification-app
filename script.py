@@ -29,30 +29,28 @@ def format_content(diff_text):
     message = f"```{''.join(formatted)}```#今日の積み上げ"
     return message
 
-def create_markdown(content):
-    """日付ベースのMDファイル生成"""
+def create_markdown():
+    """nikki.md の内容を利用して、blog/libフォルダ直下にMDファイル生成"""
     date_str = datetime.now().strftime("%Y%m%d")
-    os.makedirs('item', exist_ok=True)
-    
-    with open(f'item/{date_str}.md', 'w') as f:
-        f.write(f"# {date_str}\n\n{content}")
+    destination = os.path.join("blog", "lib")
+    os.makedirs(destination, exist_ok=True)
     
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, 'nikki.txt')
-    #os.chmod(file_path, stat.S_IWRITE)
-    # ニッキーファイルの内容を削除
-    with open(file_path, 'w', encoding='utf-8') as f:
-        pass
+    nikki_md_path = os.path.join(current_dir, "nikki.md")
+    with open(nikki_md_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    new_file = os.path.join(destination, f"{date_str}.md")
+    with open(new_file, "w", encoding="utf-8") as f:
+         f.write(f"# {date_str}\n\n{content}")
+    
+    # nikki.md の内容をクリアする
+    with open(nikki_md_path, "w", encoding="utf-8") as f:
+         pass
+    print(f"Created: {new_file}")
 
 def main():
-    code_diff = get_code_changes()
-    if not code_diff:
-        print("差分が見つかりませんでした")
-        return
+    create_markdown()
     
-    formatted = format_content(code_diff)
-    create_markdown(formatted)
-    print(f"Created: item/{datetime.now().strftime('%Y%m%d')}.md")
-
 if __name__ == "__main__":
     main()
