@@ -14,4 +14,4 @@ def append_done_to_files(directory):
                 print(f"Failed to process {file_path}: {e}")
 
 if __name__ == '__main__':
-    append_done_to_files("item") 
+    append_done_to_files("item")
