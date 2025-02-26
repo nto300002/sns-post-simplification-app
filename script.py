@@ -2,6 +2,7 @@ import os
 import stat
 import subprocess
 from datetime import datetime
+import uuid
 
 def get_code_changes():
     """ステージング済みの編集差分を取得"""
@@ -40,9 +41,13 @@ def create_markdown():
     with open(nikki_md_path, "r", encoding="utf-8") as f:
         content = f.read()
     
-    new_file = os.path.join(destination, f"{date_str}.md")
+    # UUIDを生成してファイル名として使用
+    file_uuid = str(uuid.uuid4())
+    new_file = os.path.join(destination, f"{file_uuid}.md")
+    
     with open(new_file, "w", encoding="utf-8") as f:
-         f.write(f"# {date_str}\n\n{content}")
+        # 内容には日付情報も含める
+        f.write(f"# {date_str}\n\n{content}")
     
     # nikki.md の内容をクリアする
     with open(nikki_md_path, "w", encoding="utf-8") as f:
